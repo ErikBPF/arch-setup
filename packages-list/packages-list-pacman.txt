@@ -1,0 +1,15 @@
+nvidia
+wget
+devtools
+base-devel
+flameshot
+nfs-utils
+cups
+code
+ghostscript
+gsfonts
+libcups
+docker
+seahorse
+openvpn
+qopenvpn
