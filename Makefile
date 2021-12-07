@@ -50,6 +50,7 @@ enable-services:
 	sudo systemctl enable cups.service ;\
 	sudo systemctl start cups.service ;\
 	sudo usermod -a -G docker $(USER) ;\
+	sudo usermod -aG docker $(USER) ;\
 	sudo systemctl start docker ;\
 	sudo systemctl enable docker
 
