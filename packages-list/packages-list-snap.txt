@@ -1,3 +1,2 @@
 nordpass
 teams
-spotify

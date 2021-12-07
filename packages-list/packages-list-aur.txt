@@ -7,3 +7,4 @@ google-cloud-sdk-app-engine-python-extras
 dashbinsh
 unixodbc
 azure-cli
+spotify
