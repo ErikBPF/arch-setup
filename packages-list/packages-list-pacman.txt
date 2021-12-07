@@ -14,3 +14,4 @@ seahorse
 openvpn
 qopenvpn
 discord
+python-pip
