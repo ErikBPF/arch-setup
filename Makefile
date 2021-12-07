@@ -1,11 +1,11 @@
 
-full-install: first-config install-package-managers install-pacman-packages install-yay-packages enable-services install-keyboard install-dev-tools
+full-install: first-config install-package-managers install-pacman-packages install-yay-packages enable-services install-keyboard
 	sudo reboot
 
 pos-reboot: install-snap-packages
 
 first-config: configure-git
-	sudo pacman -S archlinux-keyring --nocofirm
+	sudo pacman -S archlinux-keyring iptables-nft
 
 update-fast-mirrors:
 	sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
@@ -53,21 +53,3 @@ enable-services:
 	sudo usermod -aG docker $(USER) ;\
 	sudo systemctl start docker ;\
 	sudo systemctl enable docker
-
-install-kubectl:
-	cd $(HOME) ;\
-	curl -LO "https://dl.k8s.io/release/$$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" ;\
-	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-install-minikube:
-	cd $(HOME) ;\
-	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 ;\
-	sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-install-helm:
-	cd $(HOME) ;\
-	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 ;\
-	chmod 700 get_helm.sh ;\
-	./get_helm.sh
-
-install-dev-tools: install-kubectl install-minikube install-helm

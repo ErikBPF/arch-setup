@@ -8,3 +8,8 @@ dashbinsh
 unixodbc
 azure-cli
 spotify
+docker-machine
+docker-machine-driver-kvm2
+minikube
+kubectl
+helm
