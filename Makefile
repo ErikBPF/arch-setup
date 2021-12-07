@@ -5,7 +5,7 @@ full-install: first-config install-package-managers install-pacman-packages inst
 pos-reboot: install-snap-packages
 
 first-config: configure-git
-	sudo pacman -S archlinux-keyring iptables-nft
+	sudo pacman -S archlinux-keyring --noconfirm
 
 update-fast-mirrors:
 	sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
@@ -50,6 +50,5 @@ enable-services:
 	sudo systemctl enable cups.service ;\
 	sudo systemctl start cups.service ;\
 	sudo usermod -a -G docker $(USER) ;\
-	sudo usermod -aG docker $(USER) ;\
 	sudo systemctl start docker ;\
 	sudo systemctl enable docker
