@@ -5,7 +5,7 @@ full-install: first-config install-package-managers install-pacman-packages inst
 pos-reboot: install-snap-packages
 
 first-config: configure-git
-	pacman -S archlinux-keyring
+	sudo pacman -S archlinux-keyring --nocofirm
 
 update-fast-mirrors:
 	sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
@@ -44,7 +44,7 @@ install-yay-packages:
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
 
 install-snap-packages:
-	sudo snap install nordpass teams spotify
+	sudo snap install nordpass teams
 
 enable-services:
 	sudo systemctl enable cups.service ;\
