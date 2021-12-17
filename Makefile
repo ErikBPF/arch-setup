@@ -4,7 +4,7 @@ full-install: first-config install-package-managers install-pacman-packages inst
 
 pos-reboot: install-snap-packages
 
-first-config: configure-git
+first-config: configure-git update-fast-mirrors
 	sudo pacman -S archlinux-keyring --noconfirm
 
 update-fast-mirrors:
@@ -44,11 +44,36 @@ install-yay-packages:
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
 
 install-snap-packages:
-	sudo snap install nordpass teams
+	sudo snap install nordpass
 
 enable-services:
+	chsh -s /bin/fish ;\
+	sudo pkgfile --update ;\
 	sudo systemctl enable cups.service ;\
 	sudo systemctl start cups.service ;\
 	sudo usermod -a -G docker $(USER) ;\
 	sudo systemctl start docker ;\
 	sudo systemctl enable docker
+
+configure-apps:
+	#find the command
+	sudo rm /usr/share/doc/find-the-command/ftc.fish  ;\
+	sudo ln -s $(PWD)/config-files/fish/ftc.fish /usr/share/doc/find-the-command/ftc.fish ;\
+	#fish
+	rm $(HOME)/.config/fish/config.fish ;\
+	ln -s $(PWD)/config-files/fish/config.fish $(HOME)/.config/fish/config.fish ;\
+	rm $(HOME)/.config/fish/fish_variables  ;\
+	ln -s $(PWD)/config-files/fish/fish_variables $(HOME)/.config/fish/fish_variables ;\
+	#flameshot
+	rm $(HOME)/.config/flameshot/flameshot.ini  ;\
+	ln -s $(PWD)/config-files/flameshot/flameshot.ini $(HOME)/.config/flameshot/flameshot.ini
+	#kitty
+	rm $(HOME)/.config/kitty/kitty.conf  ;\
+	ln -s $(PWD)/config-files/kitty/kitty.conf $(HOME)/.config/kitty/kitty.conf
+	rm $(HOME)/.config/kitty/dracula.conf  ;\
+	ln -s $(PWD)/config-files/kitty/dracula.conf $(HOME)/.config/kitty/dracula.conf
+	rm $(HOME)/.config/kitty/diff.conf  ;\
+	ln -s $(PWD)/config-files/kitty/diff.conf $(HOME)/.config/kitty/diff.conf
+
+echo:
+	echo $(PWD)

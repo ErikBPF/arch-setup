@@ -13,3 +13,5 @@ docker-machine-driver-kvm2
 minikube
 kubectl
 helm
+teams
+find-the-command

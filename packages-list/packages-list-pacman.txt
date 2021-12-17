@@ -12,7 +12,12 @@ libcups
 docker
 seahorse
 openvpn
-qopenvpn
 discord
 python-pip
 net-tools
+pkgfile
+kubectx
+postgresql-libs
+fish
+kitty
+fzf
