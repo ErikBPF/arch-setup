@@ -56,6 +56,9 @@ enable-services:
 	sudo systemctl enable docker
 
 configure-apps:
+	#gnome
+	rm $(HOME)/.config/dconf/user ;\
+	ln -s $(PWD)/config-files/gnome/user $(HOME)/.config/dconf/user ;\
 	#find the command
 	sudo rm /usr/share/doc/find-the-command/ftc.fish  ;\
 	sudo ln -s $(PWD)/config-files/fish/ftc.fish /usr/share/doc/find-the-command/ftc.fish ;\

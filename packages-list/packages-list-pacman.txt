@@ -5,6 +5,7 @@ base-devel
 flameshot
 nfs-utils
 cups
+hplip
 code
 ghostscript
 gsfonts
