@@ -22,3 +22,4 @@ postgresql-libs
 fish
 kitty
 fzf
+bat
