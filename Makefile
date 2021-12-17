@@ -5,7 +5,8 @@ full-install: first-config disable-services install-package-managers install-pac
 pos-reboot: install-snap-packages
 
 first-config: configure-git update-fast-mirrors
-	sudo pacman -S archlinux-keyring --noconfirm
+	sudo pacman -S archlinux-keyring --noconfirm; \
+	sudo pacman -Sy
 
 update-fast-mirrors:
 	sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
