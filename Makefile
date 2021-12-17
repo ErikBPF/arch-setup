@@ -47,8 +47,8 @@ install-snap-packages:
 	sudo snap install nordpass
 
 disable-services:
-	sudo systemctl systemd-networkd.service ;\
-	sudo systemctl systemd-networkd.service 
+	sudo systemctl disable systemd-networkd.service ;\
+	sudo systemctl stop systemd-networkd.service 
 
 enable-services:
 	chsh -s /bin/fish ;\
