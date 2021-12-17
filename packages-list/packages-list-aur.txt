@@ -15,3 +15,4 @@ kubectl
 helm
 teams
 find-the-command
+system-config-printer

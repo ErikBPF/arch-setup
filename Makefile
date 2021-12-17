@@ -1,5 +1,5 @@
 
-full-install: first-config install-package-managers install-pacman-packages install-yay-packages enable-services install-keyboard
+full-install: first-config disable-services install-package-managers install-pacman-packages install-yay-packages enable-services install-keyboard
 	sudo reboot
 
 pos-reboot: install-snap-packages
@@ -46,6 +46,10 @@ install-yay-packages:
 install-snap-packages:
 	sudo snap install nordpass
 
+disable-services:
+	sudo systemctl systemd-networkd.service ;\
+	sudo systemctl systemd-networkd.service 
+
 enable-services:
 	chsh -s /bin/fish ;\
 	sudo pkgfile --update ;\
@@ -77,6 +81,3 @@ configure-apps:
 	ln -s $(PWD)/config-files/kitty/dracula.conf $(HOME)/.config/kitty/dracula.conf
 	rm $(HOME)/.config/kitty/diff.conf  ;\
 	ln -s $(PWD)/config-files/kitty/diff.conf $(HOME)/.config/kitty/diff.conf
-
-echo:
-	echo $(PWD)
