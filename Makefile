@@ -42,6 +42,7 @@ install-pacman-packages:
 	sudo pacman --noconfirm --needed -Syu - < packages-list/packages-list-pacman.txt
 
 install-yay-packages:
+	echo "y" | yay -S iptables-nft && -e "\r" ;\
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
 
 install-snap-packages:
