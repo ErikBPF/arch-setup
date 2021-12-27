@@ -303,7 +303,7 @@ keys = [
 
     # Betterlockscreen
     Key([mod], "l",
-        lazy.spawn("betterlockscreen -l dim --off 30"),
+        lazy.spawn("betterlockscreen -l dim --off 10"),
         desc="Lock screen"
         ),
 
