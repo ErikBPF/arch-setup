@@ -11,10 +11,11 @@
 function send_notification {
   icon=/usr/share/icons/Papirus-Dark/16x16/actions/brightnesssettings.svg
   brightness=$(brightnessctl --device='intel_backlight' get)
+  max=$(brightnessctl --device='intel_backlight' max)
   # Make the bar with the special character ─ (it's not dash -)
   # https://en.wikipedia.org/wiki/Box-drawing_character
-  bar=$(seq -s "─" 0 $((brightness / 1200 )) | sed 's/[0-9]//g')
-  brightness=$((brightness *100 / 24000 ))
+  bar=$(seq -s "─" 0 $((brightness / (max/20) )) | sed 's/[0-9]//g')
+  brightness=$((brightness *100 / max ))
   #echo $bar
   #echo $test
   # Send the notification
@@ -36,7 +37,8 @@ case $1 in
     ;;
   *)
     brightness=$(brightnessctl --device='intel_backlight' get)
-    brightness=$((brightness *100 / 24000 ))
+    max=$(brightnessctl --device='intel_backlight' max)
+    brightness=$((brightness *100 / max ))
     icon=""
     printf "%s" "$icon $brightness" "%"
     ;;
