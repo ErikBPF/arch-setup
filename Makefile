@@ -1,5 +1,5 @@
 
-full-install: first-config disable-services install-package-managers install-pacman-packages install-yay-packages enable-services install-keyboard
+full-install: first-config install-package-managers install-pacman-packages install-yay-packages personal-configuration
 	sudo reboot
 
 pos-reboot: install-snap-packages
@@ -39,10 +39,10 @@ install-snap:
 install-package-managers: install-yay install-snap
 
 install-pacman-packages:
+	sudo pacman -R --noconfirm iptables ;\
 	sudo pacman --noconfirm --needed -Syu - < packages-list/packages-list-pacman.txt
 
 install-yay-packages:
-	echo "y" | yay -S iptables-nft && -e "\r" ;\
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
 
 install-snap-packages:
@@ -64,6 +64,8 @@ enable-services:
 	sudo systemctl enable docker ;\
 	sudo systemctl start bluetooth ;\
 	sudo systemctl enable bluetooth
+
+personal-configuration: disable-services enable services install-keyboard configure-apps
 
 configure-apps:
 	#gnome
