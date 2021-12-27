@@ -55,16 +55,20 @@ disable-services:
 enable-services:
 	chsh -s /bin/fish ;\
 	sudo pkgfile --update ;\
+	sudo usermod -a -G docker $(USER) ;\
 	sudo systemctl enable cups.service ;\
 	sudo systemctl start cups.service ;\
-	sudo usermod -a -G docker $(USER) ;\
+	sudo systemctl enable bluetooth.service; \
+	sudo systemctl start bluetooth.service; \
 	sudo systemctl start docker ;\
-	sudo systemctl enable docker
+	sudo systemctl enable docker ;\
+	sudo systemctl start bluetooth ;\
+	sudo systemctl enable bluetooth
 
 configure-apps:
 	#gnome
-	rm $(HOME)/.config/dconf/user ;\
-	ln -s $(PWD)/config-files/gnome/user $(HOME)/.config/dconf/user ;\
+	#rm $(HOME)/.config/dconf/user ;\
+	#ln -s $(PWD)/config-files/gnome/user $(HOME)/.config/dconf/user ;\
 	#find the command
 	sudo rm /usr/share/doc/find-the-command/ftc.fish  ;\
 	sudo ln -s $(PWD)/config-files/fish/ftc.fish /usr/share/doc/find-the-command/ftc.fish ;\
@@ -75,6 +79,7 @@ configure-apps:
 	ln -s $(PWD)/config-files/fish/fish_variables $(HOME)/.config/fish/fish_variables ;\
 	#flameshot
 	rm $(HOME)/.config/flameshot/flameshot.ini  ;\
+	mkdir $(HOME)/.config/flameshot ;\
 	ln -s $(PWD)/config-files/flameshot/flameshot.ini $(HOME)/.config/flameshot/flameshot.ini
 	#kitty
 	rm $(HOME)/.config/kitty/kitty.conf  ;\
@@ -83,3 +88,24 @@ configure-apps:
 	ln -s $(PWD)/config-files/kitty/dracula.conf $(HOME)/.config/kitty/dracula.conf
 	rm $(HOME)/.config/kitty/diff.conf  ;\
 	ln -s $(PWD)/config-files/kitty/diff.conf $(HOME)/.config/kitty/diff.conf
+	#qtile
+	rm -rf $(HOME)/.config/qtile  ;\
+	mkdir $(HOME)/.config/qtile ;\
+	ln -s $(PWD)/config-files/qtile/autostart.sh $(HOME)/.config/qtile/autostart.sh
+	ln -s $(PWD)/config-files/qtile/config.py $(HOME)/.config/qtile/config.py
+	#dunst
+	rm -rf $(HOME)/.config/dunst  ;\
+	mkdir $(HOME)/.config/dunst ;\
+	ln -s $(PWD)/config-files/dunst/dunstrc $(HOME)/.config/dunst/dunstrc
+	#rofi
+	rm -rf $(HOME)/.config/rofi  ;\
+	ln -s $(PWD)/config-files/rofi $(HOME)/.config/
+	#bin files
+	rm -rf $(HOME)/.local/bin/statusbar  ;\
+	ln -s $(PWD)/config-files/bin/statusbar $(HOME)/.local/bin/statusbar
+	# BetterLockscreen
+	rm -f $(HOME)/.config/betterlockscreenrc ;\
+	ln -s $(PWD)/config-files/betterlockscreen/betterlockscreenrc $(HOME)/.config/betterlockscreenrc
+	# Wallpaper
+	rm -rf $(HOME)/.config/wallpapers  ;\
+	ln -s $(PWD)/config-files/wallpapers $(HOME)/.config/wallpapers

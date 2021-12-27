@@ -16,3 +16,15 @@ helm
 teams
 find-the-command
 system-config-printer
+dunst
+feh
+betterlockscreen
+rofi
+qtile
+brightnessctl
+ttf-meslo-nerd-font-powerlevel10k
+network-manager-applet
+xrdb
+bluetooth
+blueman
+xidlehook

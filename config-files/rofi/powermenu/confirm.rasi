@@ -1,0 +1,28 @@
+/* Confirm Dialog */
+
+@import "~/.config/rofi/colors.rasi"
+
+* {
+    background-color:       @bg;
+    text-color:             @fg;
+	font:				 	"FantasqueSansMono Nerd Font 12";
+}
+
+window {
+    transparency:                   "screenshot";
+    background-color:               @bg;
+    text-color:                     @fg;
+	border:							0px;
+	border-color:					@ac;
+    border-radius:                  12px;
+	width:							10%;
+    location:                       center;
+    x-offset:                       0;
+    y-offset:                       0;
+    padding:                        1.5% 1.5% 1.5% 1.5%;
+}
+
+entry {
+    expand: 				true;
+    text-color:				@bg;
+}
