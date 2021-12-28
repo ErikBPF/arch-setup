@@ -111,13 +111,13 @@ terminal = 'kitty'
 home = os.path.expanduser('~')
 
 MYCOLORS = [
-    '#073642',
+    '#21222c',
     '#dc322f',
     '#00ff2a',
     '#b58900',
     '#268bd2',
     '#d33682',
-    '#2aa198',
+    '#6272a4',
     '#eee8d5',
 ]
 
@@ -428,6 +428,7 @@ widget_defaults = dict(
     font='FiraCode Nerd Font Regular',
     fontsize='14',
     padding=2,
+    background="#21222cFF",
 )
 extension_defaults = widget_defaults.copy()
 
@@ -447,9 +448,9 @@ for monitor in range(monitors):
                         widget.Spacer(),
                         widget.GenPollText(func=custom_date, update_interval=1, **widget_defaults, mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh show"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh edit"), shell=True)}),
                         widget.Spacer(),
-                        widget.Spacer(background="#333333ff",length=10),
+                        widget.Spacer(length=10),
                         widget.Mpris2(
-                            background="#333333ff",
+                            
                             name='spotify',
                             objname="org.mpris.MediaPlayer2.spotify",
                             display_metadata=['xesam:title', 'xesam:artist'],
@@ -457,20 +458,20 @@ for monitor in range(monitors):
                             stop_pause_text='',
                             **widget_defaults
                         ),
-                        widget.GenPollText(background="#333333ff",update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol down"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol up"), shell=True)}),
-                        widget.Spacer(background="#333333ff",length=5),
-                        widget.GenPollText(background="#333333ff",update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/volumecontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol down"), shell=True), 'Button2': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol mute"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol up"), shell=True)}),
-                        widget.Spacer(background="#333333ff",length=5),
-                        widget.GenPollText(background="#333333ff",update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/battery.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/battery.py --c left-click"), shell=True)}),
-                        widget.Spacer(background="#333333ff",length=5),
+                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol down"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol up"), shell=True)}),
+                        widget.Spacer(length=5),
+                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/volumecontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol down"), shell=True), 'Button2': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol mute"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol up"), shell=True)}),
+                        widget.Spacer(length=5),
+                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/battery.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/battery.py --c left-click"), shell=True)}),
+                        widget.Spacer(length=5),
                         #widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/bluetooth.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/bluetooth.py --c left-click"), shell=True)}),
                         #widget.Spacer(length=5),
-                        widget.Systray(background="#333333ff"),
-                        widget.Spacer(background="#333333ff",length=5),
-                        widget.GenPollText(background="#333333ff",update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/power.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/power.py --c left-click"), shell=True)}),
-                        widget.Spacer(background="#333333ff",length=10),
+                        widget.Systray(background="#21222cFF"),
+                        widget.Spacer(length=5),
+                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/power.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/power.py --c left-click"), shell=True)}),
+                        widget.Spacer(length=10),
                     ],
-                    28, opacity=1.0, background="#333333ff", margin=[0, 0, 0, 0]  # N E S W
+                    28, opacity=1.0,  margin=[0, 0, 0, 0]  # N E S W
                 ),
             )
         )

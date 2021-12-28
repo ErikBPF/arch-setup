@@ -15,6 +15,11 @@ kubectl
 helm
 teams
 find-the-command
+xorg-server
+amixer
+pulseaudio
+xorg-xinit
+xorg-utils
 system-config-printer
 dunst
 feh
@@ -24,7 +29,9 @@ qtile
 brightnessctl
 ttf-meslo-nerd-font-powerlevel10k
 network-manager-applet
-xrdb
-bluetooth
 blueman
 xidlehook
+xf86-video-intel
+arc-gtk-theme
+vimix-cursors
+tela-circle-icon-theme-git

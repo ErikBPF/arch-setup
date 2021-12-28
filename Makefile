@@ -55,9 +55,16 @@ disable-services:
 enable-services:
 	chsh -s /bin/fish ;\
 	sudo pkgfile --update ;\
+	setxkbmap -layout us -variant intl ;\
 	sudo usermod -a -G docker $(USER) ;\
+	sudo usermod -a -G audio $(USER) ;\
+	sudo usermod -a -G video $(USER) ;\
 	sudo systemctl enable cups.service ;\
 	sudo systemctl start cups.service ;\
+	sudo systemctl enable wpa_supplicant.service ;\
+	sudo systemctl start wpa_supplicant.service ;\
+	sudo systemctl enable NetworkManager.service ;\
+	sudo systemctl start NetworkManager.service ;\
 	sudo systemctl enable bluetooth.service; \
 	sudo systemctl start bluetooth.service; \
 	sudo systemctl start docker ;\
@@ -65,7 +72,7 @@ enable-services:
 	sudo systemctl start bluetooth ;\
 	sudo systemctl enable bluetooth
 
-personal-configuration: disable-services enable services install-keyboard configure-apps
+personal-configuration: disable-services enable-display enable-services install-keyboard configure-apps
 
 configure-apps:
 	#gnome
@@ -76,6 +83,7 @@ configure-apps:
 	sudo ln -s $(PWD)/config-files/fish/ftc.fish /usr/share/doc/find-the-command/ftc.fish ;\
 	#fish
 	rm $(HOME)/.config/fish/config.fish ;\
+	mkdir $(HOME)/.config/fish ;\
 	ln -s $(PWD)/config-files/fish/config.fish $(HOME)/.config/fish/config.fish ;\
 	rm $(HOME)/.config/fish/fish_variables  ;\
 	ln -s $(PWD)/config-files/fish/fish_variables $(HOME)/.config/fish/fish_variables ;\
@@ -104,6 +112,7 @@ configure-apps:
 	ln -s $(PWD)/config-files/rofi $(HOME)/.config/
 	#bin files
 	rm -rf $(HOME)/.local/bin/statusbar  ;\
+	mkdir $(HOME)/.local/bin ;\
 	ln -s $(PWD)/config-files/bin/statusbar $(HOME)/.local/bin/statusbar
 	# BetterLockscreen
 	rm -f $(HOME)/.config/betterlockscreenrc ;\
@@ -111,3 +120,7 @@ configure-apps:
 	# Wallpaper
 	rm -rf $(HOME)/.config/wallpapers  ;\
 	ln -s $(PWD)/config-files/wallpapers $(HOME)/.config/wallpapers
+	# GTK
+	rm -rf $(HOME)/.config/gtk-3.0/settings.ini  ;\
+	mkdir $(HOME)/.config/gtk-3.0 ;\
+	ln -s $(PWD)/config-files/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0/settings.ini
