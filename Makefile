@@ -114,6 +114,9 @@ configure-apps:
 	rm -rf $(HOME)/.local/bin/statusbar  ;\
 	mkdir $(HOME)/.local/bin ;\
 	ln -s $(PWD)/config-files/bin/statusbar $(HOME)/.local/bin/statusbar
+	# xinit
+	rm $(HOME)/.xinitrc
+	ln -s $(PWD)/config-files/xinit/.xinitrc $(HOME)/.xinitrc
 	# BetterLockscreen
 	rm -f $(HOME)/.config/betterlockscreenrc ;\
 	ln -s $(PWD)/config-files/betterlockscreen/betterlockscreenrc $(HOME)/.config/betterlockscreenrc

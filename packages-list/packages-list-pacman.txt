@@ -11,6 +11,9 @@ ghostscript
 gsfonts
 libcups
 docker
+gnome-keyring
+libsecret
+libgnome-keyring
 seahorse
 openvpn
 discord
