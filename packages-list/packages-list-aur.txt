@@ -15,11 +15,8 @@ kubectl
 helm
 teams
 find-the-command
-xorg-server
-amixer
+xorg
 pulseaudio
-xorg-xinit
-xorg-utils
 system-config-printer
 dunst
 feh
@@ -35,3 +32,6 @@ xf86-video-intel
 arc-gtk-theme
 vimix-cursors
 tela-circle-icon-theme-git
+nerd-fonts-fira-code
+pa-applet-git
+pavucontrol 

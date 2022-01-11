@@ -4,6 +4,8 @@ lxsession &
 xset r rate 300 50 &
 blueman-applet&
 nm-applet &
+pa-applet &
+pulseeffects -w &
 dunst &
 feh --randomize --bg-fill ~/.config/wallpapers/wallpaper.png &
 betterlockscreen -u ~/.config/wallpapers &
