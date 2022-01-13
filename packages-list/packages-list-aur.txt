@@ -15,14 +15,6 @@ kubectl
 helm
 teams
 find-the-command
-xorg
-pulseaudio
-system-config-printer
-dunst
-feh
-betterlockscreen
-rofi
-qtile
 brightnessctl
 ttf-meslo-nerd-font-powerlevel10k
 network-manager-applet
@@ -35,3 +27,7 @@ tela-circle-icon-theme-git
 nerd-fonts-fira-code
 pa-applet-git
 pavucontrol 
+gnome-ssh-askpass3 
+menulibre 
+mugshot
+systemd-ssh-agent

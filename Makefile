@@ -59,18 +59,24 @@ enable-services:
 	sudo usermod -a -G docker $(USER) ;\
 	sudo usermod -a -G audio $(USER) ;\
 	sudo usermod -a -G video $(USER) ;\
+	sudo usermod -a -G libvirt $(USER) ;\
 	sudo systemctl enable cups.service ;\
-	sudo systemctl start cups.service ;\
 	sudo systemctl enable wpa_supplicant.service ;\
-	sudo systemctl start wpa_supplicant.service ;\
 	sudo systemctl enable NetworkManager.service ;\
-	sudo systemctl start NetworkManager.service ;\
 	sudo systemctl enable bluetooth.service; \
-	sudo systemctl start bluetooth.service; \
-	sudo systemctl start docker ;\
 	sudo systemctl enable docker ;\
-	sudo systemctl start bluetooth ;\
-	sudo systemctl enable bluetooth
+	sudo systemctl enable lightdm ;\
+	sudo systemctl enable bluetooth ;\
+	sudo systemctl enable libvirtd ;\
+	sudo systemctl --user enable ssh-agent.service ;\
+	sudo sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers ;\
+	sudo echo "SSH_ASKPASS=/usr/bin/gnome-ssh-askpass3" >> /etc/environment ;\
+	sudo sed -i '/unix_sock_group/s/^#//g' /etc/libvirt/libvirtd.conf ;\
+    sudo sed -i '/unix_sock_rw_perms/s/^#//g' /etc/libvirt/libvirtd.conf ;\
+    sudo virsh net-autostart default ;\
+	xdg-user-dirs-update ;\
+	yay --editmenu --nodiffmenu --save
+	
 
 personal-configuration: disable-services enable-display enable-services install-keyboard configure-apps
 
