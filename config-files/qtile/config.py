@@ -375,24 +375,26 @@ keys = [
 # Groups with matches
 
 workspaces = [
-    {"name": " ₁", "key": "1"},# "matches": [Match(wm_class='firefox')], "layout": "monadtall"},
-    {"name": " ₂", "key": "2"},# "matches": [Match(wm_class='kitty'), Match(wm_class='ranger')], "layout": "monadtall"},
-    {"name": " ₃", "key": "3"},# "matches": [Match(wm_class='vim')], "layout": "monadtall"},
-    {"name": " ₄", "key": "4"},# "matches": [Match(wm_class='telegram-desktop'), Match(wm_class='weechat')], "layout": "monadtall"},
-    {"name": " ₅", "key": "5"},# "matches": [Match(wm_class='gimp-2.10')], "layout": "monadtall"},
-    {"name": "阮 ₆", "key": "6"},# "matches": [Match(wm_class='spotify')], "layout": "monadtall"},
-    {"name": " ₇", "key": "7"},# "matches": [Match(wm_class='libreoffice')], "layout": "monadtall"},
-    {"name": " ₈", "key": "8"},# "matches": [Match(wm_class='newsboat')], "layout": "monadtall"},
-    {"name": " ₉", "key": "9"},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
-]
+    {"name": " ₁", "key": "1", "screen": 0},# "matches": [Match(wm_class='firefox')], "layout": "monadtall"},
+    {"name": " ₂", "key": "2", "screen": 1},# "matches": [Match(wm_class='kitty'), Match(wm_class='ranger')], "layout": "monadtall"},
+    {"name": " ₃", "key": "3", "screen": 2},# "matches": [Match(wm_class='vim')], "layout": "monadtall"},
+    {"name": " ₄", "key": "4", "screen": 0},# "matches": [Match(wm_class='telegram-desktop'), Match(wm_class='weechat')], "layout": "monadtall"},
+    {"name": " ₅", "key": "5", "screen": 1},# "matches": [Match(wm_class='gimp-2.10')], "layout": "monadtall"},
+    {"name": "阮 ₆", "key": "6", "screen": 2},# "matches": [Match(wm_class='spotify')], "layout": "monadtall"},
+    {"name": " ₇", "key": "7", "screen": 0},# "matches": [Match(wm_class='libreoffice')], "layout": "monadtall"},
+    {"name": " ₈", "key": "8", "screen": 1},# "matches": [Match(wm_class='newsboat')], "layout": "monadtall"},
+    {"name": " ₉", "key": "9", "screen": 2},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
+]  
 
 groups = []
 for workspace in workspaces:
     matches = workspace["matches"] if "matches" in workspace else None
     layouts = workspace["layout"] if "layout" in workspace else None
     groups.append(Group(workspace["name"], matches=matches, layout=layouts))
-    keys.append(Key([mod], workspace["key"], lazy.group[workspace["name"]].toscreen()))
-    keys.append(Key([mod, "shift"], workspace["key"], lazy.window.togroup(workspace["name"])))
+    keys.append(Key([mod], workspace["key"], lazy.group[workspace["name"]].toscreen(workspace["screen"]),
+                                             lazy.to_screen(workspace["screen"])))
+    keys.append(Key([mod, "shift"], workspace["key"], lazy.window.togroup(workspace["name"]),
+                                                      lazy.to_screen(workspace["screen"])))
 
 # Move window to screen with Mod, Alt and number
 
@@ -408,7 +410,7 @@ layout_theme = {"border_width": 1,
                 }
 
 layouts = [
-    layout.MonadTall(**layout_theme, single_border_width=0),
+    #layout.MonadTall(**layout_theme, single_border_width=0),
     #layout.Stack(num_stacks=2, **layout_theme),
     #layout.Max(**layout_theme),
     # Try more layouts by unleashing below layouts.
@@ -425,8 +427,15 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='FiraCode Nerd Font Regular',
+    font='Ubuntu Regular',
     fontsize='14',
+    padding=2,
+    background="#21222cFF",
+)
+
+icon_widget_defaults = dict(
+    font='FiraCode Nerd Font',
+    fontsize='18',
     padding=2,
     background="#21222cFF",
 )
@@ -441,7 +450,7 @@ for monitor in range(monitors):
                 top=bar.Bar(
                     [
                         widget.Spacer(length=10),
-                        widget.GroupBox(borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
+                        widget.GroupBox(visible_groups=[" ₁"," ₄"," ₇"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
                         widget.CurrentLayoutIcon(scale=0.7),
                         widget.WindowName(width=bar.CALCULATED, format='{name}', **widget_defaults),
                         widget.Prompt(**widget_defaults),
@@ -460,34 +469,36 @@ for monitor in range(monitors):
                         ),
                         widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol down"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol up"), shell=True)}),
                         widget.Spacer(length=5),
-                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/volumecontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol down"), shell=True), 'Button2': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol mute"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/volumecontrol up"), shell=True)}),
-                        widget.Spacer(length=5),
                         widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/battery.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/battery.py --c left-click"), shell=True)}),
-                        widget.Spacer(length=5),
-                        #widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/bluetooth.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/bluetooth.py --c left-click"), shell=True)}),
-                        #widget.Spacer(length=5),
+                        widget.Spacer(length=5),,
                         widget.Systray(background="#21222cFF"),
                         widget.Spacer(length=5),
-                        widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/power.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/power.py --c left-click"), shell=True)}),
+                        widget.GenPollText(update_interval=1, **icon_widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/power.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/power.py --c left-click"), shell=True)}),
                         widget.Spacer(length=10),
                     ],
                     28, opacity=1.0,  margin=[0, 0, 0, 0]  # N E S W
                 ),
             )
         )
-else:
-    screens.append(
-        Screen(
-            top=bar.Bar(
-                [
-                    widget.Spacer(),
-                    widget.GenPollText(func=custom_date, update_interval=1, **widget_defaults, mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh show"), shell=True), 'Bu      tton3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh edit"), shell=True)}),
-                    widget.Spacer(),
-                ],
-                28, background="#333333AA", margin=[0, 0, 0, 0]  # N E S W
-            ),
+    else:
+        screens.append(
+            Screen(
+                top=bar.Bar(
+                    [
+                        widget.Spacer(length=10),
+                        if monitor == 1:
+                            widget.GroupBox(visible_groups=[" ₂", " ₅", " ₈"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
+                        elif monitor == 2:
+                            widget.GroupBox(visible_groups=[" ₃", "阮 ₆", " ₉"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
+                        widget.Spacer(),
+                        widget.GenPollText(func=custom_date, update_interval=1, **widget_defaults, mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh show"), shell=True), 'Bu      tton3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh edit"), shell=True)}),
+                        widget.Spacer(),
+                        widget.Spacer(length=10),
+                    ],
+                    28, background="#333333AA", margin=[0, 0, 0, 0]  # N E S W
+                )
+            )
         )
-    )
 
 
 # Drag floating layouts.
@@ -503,7 +514,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(**layout_theme, float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     # *layout.Floating.default_float_rules,
