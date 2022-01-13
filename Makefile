@@ -39,7 +39,6 @@ install-snap:
 install-package-managers: install-yay install-snap
 
 install-pacman-packages:
-	sudo pacman -R --noconfirm iptables ;\
 	sudo pacman --noconfirm --needed -Syu - < packages-list/packages-list-pacman.txt
 
 install-yay-packages:
