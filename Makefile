@@ -78,7 +78,7 @@ enable-services:
 	yay --editmenu --nodiffmenu --save
 	
 
-personal-configuration: disable-services enable-display enable-services install-keyboard configure-apps
+personal-configuration: disable-services enable-services install-keyboard configure-apps
 
 configure-apps:
 	#gnome
@@ -121,7 +121,7 @@ configure-apps:
 	mkdir $(HOME)/.local/bin ;\
 	ln -s $(PWD)/config-files/bin/statusbar $(HOME)/.local/bin/statusbar
 	# xinit
-	rm $(HOME)/.xinitrc
+	rm -rf $(HOME)/.xinitrc
 	ln -s $(PWD)/config-files/xinit/.xinitrc $(HOME)/.xinitrc
 	# BetterLockscreen
 	rm -f $(HOME)/.config/betterlockscreenrc ;\
