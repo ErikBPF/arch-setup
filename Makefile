@@ -68,6 +68,7 @@ enable-services:
 	sudo systemctl enable lightdm ;\
 	sudo systemctl enable bluetooth ;\
 	sudo systemctl enable libvirtd ;\
+	sudo systemctl enable sshd ;\
 	sudo systemctl --user enable ssh-agent.service ;\
 	sudo sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers ;\
 	sudo echo "SSH_ASKPASS=/usr/bin/gnome-ssh-askpass3" >> /etc/environment ;\
