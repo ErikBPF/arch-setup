@@ -360,6 +360,7 @@ do
 done
 
 git clone https://github.com/ErikBPF/arch-setup
+chmod 777 arch-setup/
 arch-chroot /mnt /root/arch-setup/setup.sh
 
 # Finishing up.

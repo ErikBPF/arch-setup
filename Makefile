@@ -99,6 +99,7 @@ configure-apps:
 	ln -s $(PWD)/config-files/flameshot/flameshot.ini $(HOME)/.config/flameshot/flameshot.ini
 	#kitty
 	rm $(HOME)/.config/kitty/kitty.conf  ;\
+	mkdir $(HOME)/.config/kitty ;\
 	ln -s $(PWD)/config-files/kitty/kitty.conf $(HOME)/.config/kitty/kitty.conf
 	rm $(HOME)/.config/kitty/dracula.conf  ;\
 	ln -s $(PWD)/config-files/kitty/dracula.conf $(HOME)/.config/kitty/dracula.conf
@@ -120,9 +121,12 @@ configure-apps:
 	rm -rf $(HOME)/.local/bin/statusbar  ;\
 	mkdir $(HOME)/.local/bin ;\
 	ln -s $(PWD)/config-files/bin/statusbar $(HOME)/.local/bin/statusbar
-	# xinit
-	rm -rf $(HOME)/.xinitrc
-	ln -s $(PWD)/config-files/xinit/.xinitrc $(HOME)/.xinitrc
+	# lightdm
+	rm $(HOME)/.xsession ;\
+	chmod 744 $(PWD)/config-files/lightdm/.xsession ;\
+	ln -s $(PWD)/config-files/lightdm/.xsession $(HOME)/.xsession ;\
+	sudo sed -i 's/^#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf								
+	sudo sed -i 's/^#!\/bin\/sh/#!\/bin\/bash/' /etc/lightdm/Xsession
 	# BetterLockscreen
 	rm -f $(HOME)/.config/betterlockscreenrc ;\
 	ln -s $(PWD)/config-files/betterlockscreen/betterlockscreenrc $(HOME)/.config/betterlockscreenrc

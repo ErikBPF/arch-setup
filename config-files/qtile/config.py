@@ -443,6 +443,12 @@ extension_defaults = widget_defaults.copy()
 
 screens = []
 
+def extra_monitors(monitor):
+    if monitor == 1:
+        return widget.GroupBox(visible_groups=[" ₂", " ₅", " ₈"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
+    elif monitor == 2:
+        return widget.GroupBox(visible_groups=[" ₃", "阮 ₆", " ₉"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
+                        
 for monitor in range(monitors):
     if monitor == 0:
         screens.append(
@@ -470,7 +476,7 @@ for monitor in range(monitors):
                         widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol down"), shell=True), 'Button3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/brightnesscontrol up"), shell=True)}),
                         widget.Spacer(length=5),
                         widget.GenPollText(update_interval=1, **widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/battery.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/battery.py --c left-click"), shell=True)}),
-                        widget.Spacer(length=5),,
+                        widget.Spacer(length=5),
                         widget.Systray(background="#21222cFF"),
                         widget.Spacer(length=5),
                         widget.GenPollText(update_interval=1, **icon_widget_defaults, func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/power.py")).decode(), mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/power.py --c left-click"), shell=True)}),
@@ -486,10 +492,7 @@ for monitor in range(monitors):
                 top=bar.Bar(
                     [
                         widget.Spacer(length=10),
-                        if monitor == 1:
-                            widget.GroupBox(visible_groups=[" ₂", " ₅", " ₈"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
-                        elif monitor == 2:
-                            widget.GroupBox(visible_groups=[" ₃", "阮 ₆", " ₉"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
+                        extra_monitors(monitor),
                         widget.Spacer(),
                         widget.GenPollText(func=custom_date, update_interval=1, **widget_defaults, mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh show"), shell=True), 'Bu      tton3': lambda: qtile.cmd_spawn(os.path.expanduser("~/.local/bin/statusbar/calendar.sh edit"), shell=True)}),
                         widget.Spacer(),
