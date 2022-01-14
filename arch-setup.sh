@@ -379,7 +379,7 @@ done
 if [ -n "$username" ]; then
     pacman -Sy git make --needed --noconfirm
     repository="https://github.com/ErikBPF/arch-setup"
-    docFolder="/home/$username/Documents"
+    docFolder="/mnt/home/$username/Documents"
     localFolder="$docFolder/arch-setup"
     mkdir -p $localFolder
     git clone "$repository" "$localFolder"
