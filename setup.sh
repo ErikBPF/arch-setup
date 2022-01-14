@@ -16,7 +16,7 @@ echo 'export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"' >> /etc/profile
 sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers
 
 main_user=$(id -nu 1000)
-echo "$main_user"
+chown -R "$main_user:x" "/home/$main_user/Documents"
 sudo -i -u "$main_user" bash << EOF
 make -C /home/$main_user/Documents/arch-setup/ full-install
 EOF
