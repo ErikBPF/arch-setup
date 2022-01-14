@@ -168,7 +168,7 @@ gpu_installer () (
 )
 
 # Selecting the target for the installation.
-print "Welcome to easy-arch, a script made in order to simplify the process of installing Arch Linux."
+print "Welcome to arch-erik a script made in order to simplify the process of installing Arch Linux."
 PS3="Please select the disk where Arch Linux is going to be installed: "
 select ENTRY in $(lsblk -dpnoNAME|grep -P "/dev/sd|nvme|vd");
 do
@@ -283,6 +283,24 @@ print "Setting up grub config."
 UUID=$(blkid -s UUID -o value $CRYPTROOT)
 sed -i "s,^GRUB_CMDLINE_LINUX=\"\",GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID=cryptroot root=$BTRFS\",g" /mnt/etc/default/grub
 
+# Setting root password.
+print "Setting root password."
+arch-chroot /mnt /bin/passwd
+
+# Setting user password.
+if [ -n "$username" ]; then
+    print "Adding the user $username to the system with root privilege."
+    arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
+    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /mnt/etc/sudoers
+    print "Setting user password for $username." 
+    arch-chroot /mnt /bin/passwd "$username"
+fi
+
+print "installing grafical packages"
+pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
+
+gpu_installer
+
 # Configuring the system.    
 arch-chroot /mnt /bin/bash -e <<EOF
     # Setting up timezone.
@@ -319,23 +337,7 @@ arch-chroot /mnt /bin/bash -e <<EOF
     grub-mkconfig -o /boot/grub/grub.cfg &>/dev/null
 EOF
 
-# Setting root password.
-print "Setting root password."
-arch-chroot /mnt /bin/passwd
 
-# Setting user password.
-if [ -n "$username" ]; then
-    print "Adding the user $username to the system with root privilege."
-    arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
-    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /mnt/etc/sudoers
-    print "Setting user password for $username." 
-    arch-chroot /mnt /bin/passwd "$username"
-fi
-
-print "installing grafical packages"
-pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
-
-gpu_installer
 
 # Boot backup hook.
 print "Configuring /boot backup when pacman transactions are made."
@@ -375,6 +377,7 @@ done
 
 # Setting user environment
 if [ -n "$username" ]; then
+    pacman -S git make --needed --noconfirm
     repository="https://github.com/ErikBPF/arch-setup"
     docFolder="/home/$username/Documents"
     localFolder="$docFolder/arch-setup"
