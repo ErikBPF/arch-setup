@@ -377,7 +377,7 @@ done
 
 # Setting user environment
 if [ -n "$username" ]; then
-    pacman -S git make --needed --noconfirm
+    pacman -Sy git make --needed --noconfirm
     repository="https://github.com/ErikBPF/arch-setup"
     docFolder="/home/$username/Documents"
     localFolder="$docFolder/arch-setup"
