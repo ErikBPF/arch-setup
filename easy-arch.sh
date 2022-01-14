@@ -237,7 +237,7 @@ virt_check
 # Pacstrap (setting up a base sytem onto the new root).
 print "Installing the base system (it may take a while)."
 pacstrap /mnt $microcode base base-devel linux linux-firmware reflector git gnupg networkmanager dhclient dialog wpa_supplicant wireless_tools netctl inetutils openssh btrfs-progs grub grub-btrfs rsync efibootmgr snapper reflector snap-pac zram-generator
-pacstrap /mnt nvidia nvidia-utils nvidia-settings xorg git make xdg-user-dirs xdg-utils lightdm lightdm-gtk-greeter lightdm-gtk-greeter-setting
+pacstrap /mnt nvidia nvidia-utils nvidia-settings xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
 # Setting up the hostname.
 hostname_selector
 

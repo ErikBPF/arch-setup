@@ -33,8 +33,7 @@ mugshot
 systemd-ssh-agent
 xorg
 lightdm
-lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
+lightdm-slick-greeter
 xorg
 alsa-utils
 pulseaudio
