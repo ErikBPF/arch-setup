@@ -157,6 +157,16 @@ keyboard_selector () {
     echo "KEYMAP=$kblayout" > /mnt/etc/vconsole.conf
 }
 
+gpu_installer () (
+    GPU=$(lspci | grep VGA)
+    if [[ $GPU == *"NVIDIA Corporation"* ]]; then
+        pacstrap /mnt nvidia nvidia-utils nvidia-settings
+    fi
+    if [[ $GPU == *"Intel Corporation"* ]]; then
+        pacstrap /mnt xf86-video-intel mesa
+    fi
+)
+
 # Selecting the target for the installation.
 print "Welcome to easy-arch, a script made in order to simplify the process of installing Arch Linux."
 PS3="Please select the disk where Arch Linux is going to be installed: "
@@ -237,7 +247,6 @@ virt_check
 # Pacstrap (setting up a base sytem onto the new root).
 print "Installing the base system (it may take a while)."
 pacstrap /mnt $microcode base base-devel linux linux-firmware reflector git gnupg networkmanager dhclient dialog wpa_supplicant wireless_tools netctl inetutils openssh btrfs-progs grub grub-btrfs rsync efibootmgr snapper reflector snap-pac zram-generator
-pacstrap /mnt nvidia nvidia-utils nvidia-settings xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
 # Setting up the hostname.
 hostname_selector
 
@@ -322,6 +331,11 @@ if [ -n "$username" ]; then
     print "Setting user password for $username." 
     arch-chroot /mnt /bin/passwd "$username"
 fi
+
+print "installing grafical packages"
+pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
+
+gpu_installer
 
 # Boot backup hook.
 print "Configuring /boot backup when pacman transactions are made."
