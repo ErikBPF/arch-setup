@@ -138,23 +138,13 @@ hostname_selector () {
 
 # Setting up the locale (function).
 locale_selector () {
-    read -r -p "Please insert the locale you use (format: xx_XX or enter empty to use en_US): " locale
-    if [ -z "$locale" ]; then
-        print "en_US will be used as default locale."
-        locale="en_US"
-    fi
-    echo "$locale.UTF-8 UTF-8"  > /mnt/etc/locale.gen
-    echo "LANG=$locale.UTF-8" > /mnt/etc/locale.conf
+    echo "en_US.UTF-8 UTF-8"  > /mnt/etc/locale.gen
+    echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 }
 
 # Setting up the keyboard layout (function).
 keyboard_selector () {
-    read -r -p "Please insert the keyboard layout you use (enter empty to use US keyboard layout): " kblayout
-    if [ -z "$kblayout" ]; then
-        print "US keyboard layout will be used by default."
-        kblayout="us"
-    fi
-    echo "KEYMAP=$kblayout" > /mnt/etc/vconsole.conf
+    echo "KEYMAP=us" > /mnt/etc/vconsole.conf
 }
 
 gpu_installer () (
@@ -246,9 +236,24 @@ virt_check
 
 # Pacstrap (setting up a base sytem onto the new root).
 print "Installing the base system (it may take a while)."
-pacstrap /mnt $microcode base base-devel linux linux-firmware reflector git gnupg networkmanager dhclient dialog wpa_supplicant wireless_tools netctl inetutils openssh btrfs-progs grub grub-btrfs rsync efibootmgr snapper reflector snap-pac zram-generator
+pacstrap /mnt $microcode base base-devel linux linux-firmware 
 # Setting up the hostname.
 hostname_selector
+
+# Setting root password.
+print "Setting root password."
+arch-chroot /mnt /bin/passwd
+
+# Setting user password.
+if [ -n "$username" ]; then
+    print "Adding the user $username to the system with root privilege."
+    arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
+    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /mnt/etc/sudoers
+    print "Setting user password for $username." 
+    arch-chroot /mnt /bin/passwd "$username"
+fi
+
+pacstrap /mnt reflector git gnupg networkmanager dhclient dialog wpa_supplicant wireless_tools netctl inetutils openssh btrfs-progs grub grub-btrfs rsync efibootmgr snapper reflector snap-pac zram-generator
 
 # Generating /etc/fstab.
 print "Generating a new fstab."
@@ -283,18 +288,7 @@ print "Setting up grub config."
 UUID=$(blkid -s UUID -o value $CRYPTROOT)
 sed -i "s,^GRUB_CMDLINE_LINUX=\"\",GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID=cryptroot root=$BTRFS\",g" /mnt/etc/default/grub
 
-# Setting root password.
-print "Setting root password."
-arch-chroot /mnt /bin/passwd
 
-# Setting user password.
-if [ -n "$username" ]; then
-    print "Adding the user $username to the system with root privilege."
-    arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
-    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /mnt/etc/sudoers
-    print "Setting user password for $username." 
-    arch-chroot /mnt /bin/passwd "$username"
-fi
 
 print "installing grafical packages"
 pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
@@ -379,12 +373,11 @@ done
 if [ -n "$username" ]; then
     pacman -Sy git make --needed --noconfirm
     repository="https://github.com/ErikBPF/arch-setup"
-    docFolder="/mnt/home/$username/Documents"
+    docFolder="/home/$username/Documents"
     localFolder="$docFolder/arch-setup"
-    mkdir -p $localFolder
-    git clone "$repository" "$localFolder"
-    chown -R "$username:x" "$docFolder"
-    chmod a+rwx "$localFolder"
+    mkdir -p "/mnt$localFolder"
+    git clone "$repository" "/mnt$localFolder"
+    chmod a+rwx "/mnt$localFolder"
     arch-chroot /mnt $localFolder/setup.sh
 fi
 
