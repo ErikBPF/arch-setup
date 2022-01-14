@@ -373,9 +373,17 @@ do
     systemctl enable "$service" --root=/mnt &>/dev/null
 done
 
-git clone https://github.com/ErikBPF/arch-setup
-chmod 777 arch-setup/
-arch-chroot /mnt /root/arch-setup/setup.sh
+# Setting user environment
+if [ -n "$username" ]; then
+    repository="https://github.com/ErikBPF/arch-setup"
+    docFolder="/home/$username/Documents"
+    localFolder="$docFolder/arch-setup"
+    mkdir -p $localFolder
+    git clone "$repository" "$localFolder"
+    chown -R $username:$username "$docFolder"
+    chmod a+rwx "$localFolder"
+    arch-chroot /mnt $localFolder/setup.sh
+fi
 
 # Finishing up.
 print "Done, you may now wish to reboot (further changes can be done by chrooting into /mnt)."
