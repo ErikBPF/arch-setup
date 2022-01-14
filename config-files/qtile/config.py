@@ -315,7 +315,7 @@ keys = [
 
     # Nautilus
     Key([mod], "e",
-        lazy.spawn("nautilus -w"),
+        lazy.spawn("nemo"),
         desc="open file browser"
         ),
 

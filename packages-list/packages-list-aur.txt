@@ -28,8 +28,6 @@ nerd-fonts-fira-code
 pa-applet-git
 pavucontrol
 gnome-ssh-askpass3
-menulibre
-mugshot
 systemd-ssh-agent
 xorg
 lightdm
@@ -50,13 +48,10 @@ rofi
 qtile
 arc-gtk-theme
 arc-icon-theme
-gnome-shell
 file-roller
 nemo-fileroller
 gparted
 pavucontrol
-qalculate-gtk
-deluge-gtk
 baobab
 xreader
 qemu
@@ -87,7 +82,6 @@ unrar
 p7zip
 unarchiver
 nano
-nautilus
 neofetch
 btop
 nvtop

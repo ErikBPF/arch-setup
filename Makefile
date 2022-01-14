@@ -82,13 +82,16 @@ configure-apps:
 	mkdir $(HOME)/.config/flameshot ;\
 	ln -s $(PWD)/config-files/flameshot/flameshot.ini $(HOME)/.config/flameshot/flameshot.ini
 	#kitty
-	rm $(HOME)/.config/kitty/kitty.conf  ;\
+	rm -rf $(HOME)/.config/kitty/kitty.conf  ;\
 	mkdir $(HOME)/.config/kitty ;\
 	ln -s $(PWD)/config-files/kitty/kitty.conf $(HOME)/.config/kitty/kitty.conf
 	rm $(HOME)/.config/kitty/dracula.conf  ;\
 	ln -s $(PWD)/config-files/kitty/dracula.conf $(HOME)/.config/kitty/dracula.conf
 	rm $(HOME)/.config/kitty/diff.conf  ;\
 	ln -s $(PWD)/config-files/kitty/diff.conf $(HOME)/.config/kitty/diff.conf
+	# btop
+	rm -rf $(HOME)/.config/btop  ;\
+	ln -s $(PWD)/config-files/btop $(HOME)/.config/
 	#qtile
 	rm -rf $(HOME)/.config/qtile  ;\
 	mkdir $(HOME)/.config/qtile ;\
