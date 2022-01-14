@@ -86,3 +86,6 @@ unzip
 unrar
 p7zip
 unarchiver
+nano
+nautilus
+neofetch
