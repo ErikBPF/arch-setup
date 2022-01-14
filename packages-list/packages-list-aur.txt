@@ -89,3 +89,5 @@ unarchiver
 nano
 nautilus
 neofetch
+btop
+nvtop
