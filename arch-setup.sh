@@ -383,7 +383,7 @@ if [ -n "$username" ]; then
     localFolder="$docFolder/arch-setup"
     mkdir -p $localFolder
     git clone "$repository" "$localFolder"
-    chown -R $username:$username "$docFolder"
+    chown -R "$username:x" "$docFolder"
     chmod a+rwx "$localFolder"
     arch-chroot /mnt $localFolder/setup.sh
 fi
