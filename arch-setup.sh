@@ -244,6 +244,7 @@ hostname_selector
 print "Setting root password."
 arch-chroot /mnt /bin/passwd
 
+read -r -p "Please enter name for a user account (enter empty to not create one): " username
 # Setting user password.
 if [ -n "$username" ]; then
     print "Adding the user $username to the system with root privilege."
@@ -260,7 +261,7 @@ print "Generating a new fstab."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Setting username.
-read -r -p "Please enter name for a user account (enter empty to not create one): " username
+
 
 # Setting up the locale.
 locale_selector
