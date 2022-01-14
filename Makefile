@@ -1,8 +1,6 @@
 
-full-install: first-config install-package-managers install-pacman-packages install-yay-packages personal-configuration
+full-install: first-config install-yay install-pacman-packages install-yay-packages personal-configuration
 	sudo reboot
-
-pos-reboot: install-snap-packages
 
 first-config: configure-git update-fast-mirrors
 	sudo pacman -S archlinux-keyring --noconfirm; \
@@ -27,25 +25,11 @@ install-yay:
 	makepkg -si --noconfirm ;\
 	cd $(HOME)
 
-install-snap:
-	cd $(HOME)/Documents ;\
-	git clone https://aur.archlinux.org/snapd.git ;\
-	cd snapd ;\
-	makepkg -si --noconfirm ;\
-	sudo systemctl enable --now snapd.socket;\
-	sudo ln -s /var/lib/snapd/snap /snap ;\
-	cd $(HOME)
-
-install-package-managers: install-yay install-snap
-
 install-pacman-packages:
 	sudo pacman --noconfirm --needed -Syu - < packages-list/packages-list-pacman.txt
 
 install-yay-packages:
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
-
-install-snap-packages:
-	sudo snap install nordpass
 
 disable-services:
 	sudo systemctl disable systemd-networkd.service ;\
