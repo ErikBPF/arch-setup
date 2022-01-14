@@ -1,8 +1,9 @@
 
-full-install: first-config install-yay install-pacman-packages install-yay-packages personal-configuration
+full-install: first-config install-yay install-packages personal-configuration
 	sudo reboot
 
 first-config: configure-git update-fast-mirrors
+	sudo sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers ;\
 	sudo pacman -S archlinux-keyring --noconfirm; \
 	sudo pacman -Sy
 
@@ -25,11 +26,17 @@ install-yay:
 	makepkg -si --noconfirm ;\
 	cd $(HOME)
 
+install-packages: install-pacman-packages install-yay-packages install-python-packages
+
 install-pacman-packages:
+	yes | yay -S iptables-nft
 	sudo pacman --noconfirm --needed -Syu - < packages-list/packages-list-pacman.txt
 
 install-yay-packages:
 	yay --noconfirm --needed -Sy - < packages-list/packages-list-aur.txt
+
+install-python-packages:
+	pip install -r packages-list/packages-list-python.txt
 
 disable-services:
 	sudo systemctl disable systemd-networkd.service ;\
@@ -53,7 +60,6 @@ enable-services:
 	sudo systemctl enable libvirtd ;\
 	sudo systemctl enable sshd ;\
 	sudo systemctl --user enable ssh-agent.service ;\
-	sudo sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers ;\
 	sudo echo "SSH_ASKPASS=/usr/bin/gnome-ssh-askpass3" >> /etc/environment ;\
 	sudo sed -i '/unix_sock_group/s/^#//g' /etc/libvirt/libvirtd.conf ;\
     sudo sed -i '/unix_sock_rw_perms/s/^#//g' /etc/libvirt/libvirtd.conf ;\
