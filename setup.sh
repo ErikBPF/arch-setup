@@ -2,7 +2,6 @@
 
 xdg-user-dirs-update # Updates user directories for XDG Specification
 
-output ${YELLOW} "Configuring environment variables for XDG specification"
 echo >> /etc/profile
 echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> /etc/profile
 echo 'export XDG_CACHE_HOME="$HOME/.cache"' >> /etc/profile
@@ -16,7 +15,7 @@ echo 'export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"' >> /etc/profile
 sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers
 
 main_user=$(id -nu 1000)
-chown -R "$main_user:x" "/home/$main_user/Documents"
+chown -R 1000:1000 "/home/$main_user/Documents"
 sudo -i -u "$main_user" bash << EOF
 make -C /home/$main_user/Documents/arch-setup/ full-install
 EOF
