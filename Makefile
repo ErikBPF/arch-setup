@@ -43,7 +43,7 @@ disable-services:
 	sudo systemctl stop systemd-networkd.service 
 
 enable-services:
-	chsh -s /bin/fish ;\
+	sudo usermod -s /bin/fish $(USER) ;\
 	sudo pkgfile --update ;\
 	setxkbmap -layout us -variant intl ;\
 	sudo usermod -a -G docker $(USER) ;\
