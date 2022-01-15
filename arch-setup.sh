@@ -289,12 +289,10 @@ print "Setting up grub config."
 UUID=$(blkid -s UUID -o value $CRYPTROOT)
 sed -i "s,^GRUB_CMDLINE_LINUX=\"\",GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID=cryptroot root=$BTRFS\",g" /mnt/etc/default/grub
 
-
+gpu_installer
 
 print "installing grafical packages"
 pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
-
-gpu_installer
 
 # Configuring the system.    
 arch-chroot /mnt /bin/bash -e <<EOF
