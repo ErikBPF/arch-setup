@@ -225,7 +225,8 @@ keys = [
         ),
 
     # Toggle floating
-    Key([mod, "shift"], "f", lazy.window.toggle_floating(),
+    Key([mod, "shift"], "f", 
+        lazy.window.toggle_floating(),
         desc="Toggle floating"
         ),
 
@@ -233,7 +234,7 @@ keys = [
     Key([mod], "f",
         lazy.window.toggle_fullscreen(),
         lazy.hide_show_bar(position='all'),
-        desc='Toggle fullscreen and the bars'
+        desc='Toggle fullscreen and hide the bars'
         ),
 
     # Switch window focus to other pane(s) of stack
@@ -372,18 +373,30 @@ keys = [
         )
 ]
 
+Drag_mouse = [ 
+  Drag(
+    [mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()
+  ), 
+  Drag(
+    [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+  ),
+  Click(
+    [mod], "Button2", lazy.window.bring_to_front()
+  ) 
+]
+
 # Groups with matches
 
 workspaces = [
     {"name": " ₁", "key": "1", "screen": 0},# "matches": [Match(wm_class='firefox')], "layout": "monadtall"},
-    {"name": " ₂", "key": "2", "screen": 1},# "matches": [Match(wm_class='kitty'), Match(wm_class='ranger')], "layout": "monadtall"},
-    {"name": " ₃", "key": "3", "screen": 2},# "matches": [Match(wm_class='vim')], "layout": "monadtall"},
+    {"name": " ₈", "key": "a", "screen": 1},# "matches": [Match(wm_class='newsboat')], "layout": "monadtall"},
+    {"name": " ₉", "key": "z", "screen": 2},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
+    {"name": " ₂", "key": "2", "screen": 0},# "matches": [Match(wm_class='kitty'), Match(wm_class='ranger')], "layout": "monadtall"},
+    {"name": " ₃", "key": "3", "screen": 0},# "matches": [Match(wm_class='vim')], "layout": "monadtall"},
     {"name": " ₄", "key": "4", "screen": 0},# "matches": [Match(wm_class='telegram-desktop'), Match(wm_class='weechat')], "layout": "monadtall"},
-    {"name": " ₅", "key": "5", "screen": 1},# "matches": [Match(wm_class='gimp-2.10')], "layout": "monadtall"},
-    {"name": "阮 ₆", "key": "6", "screen": 2},# "matches": [Match(wm_class='spotify')], "layout": "monadtall"},
+    {"name": " ₅", "key": "5", "screen": 0},# "matches": [Match(wm_class='gimp-2.10')], "layout": "monadtall"},
+    {"name": "阮 ₆", "key": "6", "screen": 0},# "matches": [Match(wm_class='spotify')], "layout": "monadtall"},
     {"name": " ₇", "key": "7", "screen": 0},# "matches": [Match(wm_class='libreoffice')], "layout": "monadtall"},
-    {"name": " ₈", "key": "8", "screen": 1},# "matches": [Match(wm_class='newsboat')], "layout": "monadtall"},
-    {"name": " ₉", "key": "9", "screen": 2},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
 ]  
 
 groups = []
@@ -445,9 +458,9 @@ screens = []
 
 def extra_monitors(monitor):
     if monitor == 1:
-        return widget.GroupBox(visible_groups=[" ₂", " ₅", " ₈"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
+        return widget.GroupBox(visible_groups=[" ₈"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
     elif monitor == 2:
-        return widget.GroupBox(visible_groups=[" ₃", "阮 ₆", " ₉"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
+        return widget.GroupBox(visible_groups=[" ₉"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000'])
                         
 for monitor in range(monitors):
     if monitor == 0:
@@ -456,7 +469,7 @@ for monitor in range(monitors):
                 top=bar.Bar(
                     [
                         widget.Spacer(length=10),
-                        widget.GroupBox(visible_groups=[" ₁"," ₄"," ₇"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
+                        widget.GroupBox(visible_groups=[" ₁", " ₂", " ₃", " ₄", " ₅", "阮 ₆", " ₇"], borderwidth=2, inactive='969696', this_current_screen_border='eee8d5', this_screen_border='eee8d5', font='FiraCode Nerd Font', fontsize=18, highlight_method='line', highlight_color=['00000000', '00000000']),
                         widget.CurrentLayoutIcon(scale=0.7),
                         widget.WindowName(width=bar.CALCULATED, format='{name}', **widget_defaults),
                         widget.Prompt(**widget_defaults),
@@ -516,7 +529,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = True
 floating_layout = layout.Floating(**layout_theme, float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
