@@ -153,7 +153,7 @@ gpu_installer () (
         pacstrap /mnt nvidia nvidia-utils nvidia-settings
     fi
     if [[ $GPU == *"Intel Corporation"* ]]; then
-        pacstrap /mnt xf86-video-intel mesa
+        pacstrap /mnt xf86-video-intel mesa vulkan-intel vulkan-driver vulkan-tools i2c-tools
     fi
 )
 
@@ -292,7 +292,7 @@ sed -i "s,^GRUB_CMDLINE_LINUX=\"\",GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID=crypt
 gpu_installer
 
 print "installing grafical packages"
-pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter
+pacstrap /mnt xorg git make xdg-user-dirs xdg-utils lightdm lightdm-slick-greeter qtile gnome-session
 
 # Configuring the system.    
 arch-chroot /mnt /bin/bash -e <<EOF
