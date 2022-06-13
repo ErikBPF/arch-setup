@@ -249,7 +249,7 @@ read -r -p "Please enter name for a user account (enter empty to not create one)
 if [ -n "$username" ]; then
     print "Adding the user $username to the system with root privilege."
     arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
-    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /mnt/etc/sudoers
+    sed -i -e 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /mnt/etc/sudoers
     print "Setting user password for $username." 
     arch-chroot /mnt /bin/passwd "$username"
 fi
