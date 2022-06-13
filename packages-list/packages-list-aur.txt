@@ -84,3 +84,4 @@ nano
 neofetch
 btop
 nvtop
+onlyoffice-bin
