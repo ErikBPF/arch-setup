@@ -12,7 +12,6 @@ echo 'export CARGO_HOME="$XDG_DATA_HOME/cargo"' >> /etc/profile
 echo 'export LESSHISTFILE="$XDG_CONFIG_HOME/less/history"' >> /etc/profile
 echo 'export LESSKEY="$XDG_CONFIG_HOME/less/keys"' >> /etc/profile
 echo 'export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm"' >> /etc/profile
-sed -i 's/^# %wheel ALL=(ALL)/%wheel ALL=(ALL)/' /etc/sudoers
 
 main_user=$(id -nu 1000)
 chown -R 1000:1000 "/home/$main_user/Documents"

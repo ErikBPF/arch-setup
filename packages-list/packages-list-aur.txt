@@ -25,7 +25,6 @@ arc-gtk-theme
 vimix-cursors
 tela-circle-icon-theme-git
 nerd-fonts-fira-code
-pa-applet-git
 pavucontrol
 gnome-ssh-askpass3
 systemd-ssh-agent
@@ -54,7 +53,7 @@ gparted
 pavucontrol
 baobab
 xreader
-qemu
+qemu-full
 libvirt
 iptables-nft
 dnsmasq
