@@ -18,6 +18,7 @@ find-the-command
 brightnessctl
 ttf-meslo-nerd-font-powerlevel10k
 network-manager-applet
+pa-applet-git
 blueman
 xidlehook
 xf86-video-intel
@@ -53,7 +54,7 @@ gparted
 pavucontrol
 baobab
 xreader
-qemu-full
+qemu-base
 libvirt
 iptables-nft
 dnsmasq
