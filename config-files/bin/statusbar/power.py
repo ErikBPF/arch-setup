@@ -16,6 +16,7 @@ args = parser.parse_args()
 
 if args.command == "status":
     print("襤", end="")
+    subprocess.call(["setxkbmap", "us", "intl"])
 if args.command == "left-click":
      subprocess.call([os.path.expanduser('~')+"/.config/rofi/powermenu/powermenu.sh"])
 if args.command == "middle-click":
