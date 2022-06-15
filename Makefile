@@ -118,6 +118,7 @@ configure-apps:
 	rm $(HOME)/.xsession ;\
 	chmod 744 $(PWD)/config-files/lightdm/.xsession ;\
 	ln -s $(PWD)/config-files/lightdm/.xsession $(HOME)/.xsession ;\
+	sudo cp $(PWD)/config-files/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
 	sudo sed -i 's/^#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/' /etc/lightdm/lightdm.conf								
 	sudo sed -i 's/^#!\/bin\/sh/#!\/bin\/bash/' /etc/lightdm/Xsession
 	# BetterLockscreen
@@ -126,6 +127,9 @@ configure-apps:
 	# Wallpaper
 	rm -rf $(HOME)/.config/wallpapers  ;\
 	ln -s $(PWD)/config-files/wallpapers $(HOME)/.config/wallpapers
+	sudo rm -rf /usr/share/wallpapers
+	sudo mkdir -p /usr/share/wallpapers
+	sudo cp $(PWD)/config-files/wallpapers/wallpaper.png /usr/share/wallpapers/wallpaper.png
 	# GTK
 	rm -rf $(HOME)/.config/gtk-3.0/settings.ini  ;\
 	mkdir $(HOME)/.config/gtk-3.0 ;\
