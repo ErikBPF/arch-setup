@@ -3,6 +3,7 @@
 import psutil
 import argparse
 import subprocess
+from os import getcwd
 
 
 def secs2hours(secs):
@@ -26,9 +27,14 @@ percent = int(battery.percent)
 time_left = battery.secsleft
 isPlugged = battery.power_plugged
 remaining = secs2hours(time_left)
+file_path = getcwd() + "/.local/bin/statusbar/.low_battery_notified"
+notified = open(file_path, "r").read()
 
 if args.command == "status":
     if isPlugged:
+        if notified != "0":
+            with open(file_path, "w") as f:
+                f.write("0")
         if percent == 100:
             icon = ""
         elif percent > 89 and percent < 100:
@@ -76,6 +82,10 @@ if args.command == "status":
             icon = ""
         elif percent > 0 and percent < 10:
             icon = ""
+            if notified == "0":
+                subprocess.call(["dunstify", "-r", "55555", "-u", "critical", "Battery is very low! Please recharge"])
+                with open(file_path, "w") as f:
+                    f.write("1")
         message = str(percent) + "%"
         print(icon, message, end="")
 if args.command == "left-click":
