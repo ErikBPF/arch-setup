@@ -26,6 +26,7 @@ arc-gtk-theme
 vimix-cursors
 tela-circle-icon-theme-git
 nerd-fonts-fira-code
+code-insiders
 pavucontrol
 gnome-ssh-askpass3
 systemd-ssh-agent
