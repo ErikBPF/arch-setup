@@ -266,10 +266,10 @@ keys = [
         lazy.next_layout(),
         desc="Toggle between layouts"
         ),
-    Key(["mod1"], "F4",
-        lazy.window.kill(),
-        desc="Kill focused window"
-        ),
+    # Key(["mod1"], "F4",
+    #     lazy.window.kill(),
+    #     desc="Kill focused window"
+    #     ),
     Key([mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"
@@ -390,11 +390,11 @@ Drag_mouse = [
 workspaces = [
     {"name": " ₁", "key": "1", "screen": 0},# "matches": [Match(wm_class='firefox')], "layout": "monadtall"},
     {"name": " ₈", "key": "a", "screen": 1},# "matches": [Match(wm_class='newsboat')], "layout": "monadtall"},
-    {"name": " ₉", "key": "z", "screen": 2},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
+    {"name": " ₉", "key": "z", "screen": 2, "matches": [Match(wm_class='spotify')]},# "matches": [Match(wm_class='neomutt')], "layout": "monadtall"},
     {"name": " ₂", "key": "2", "screen": 0},# "matches": [Match(wm_class='kitty'), Match(wm_class='ranger')], "layout": "monadtall"},
     {"name": " ₃", "key": "3", "screen": 0},# "matches": [Match(wm_class='vim')], "layout": "monadtall"},
     {"name": " ₄", "key": "4", "screen": 0},# "matches": [Match(wm_class='telegram-desktop'), Match(wm_class='weechat')], "layout": "monadtall"},
-    {"name": " ₅", "key": "5", "screen": 0},# "matches": [Match(wm_class='gimp-2.10')], "layout": "monadtall"},
+    {"name": " ₅", "key": "5", "screen": 0, "matches": [Match(wm_class='moonlight'), Match(wm_class='com.moonlight_stream.Moonlight')]}, # "layout": "monadtall"},
     {"name": "阮 ₆", "key": "6", "screen": 0},# "matches": [Match(wm_class='spotify')], "layout": "monadtall"},
     {"name": " ₇", "key": "7", "screen": 0},# "matches": [Match(wm_class='libreoffice')], "layout": "monadtall"},
 ]  
