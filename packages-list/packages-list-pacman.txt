@@ -1,26 +1,114 @@
-wget
-devtools
-base-devel
-flameshot
-nfs-utils
-cups
-hplip
-ghostscript
-gsfonts
-libcups
-docker
-gnome-keyring
-libsecret
-libgnome-keyring
-openvpn
-discord
-python-pip
-net-tools
-pkgfile
-kubectx
-postgresql-libs
-fish
-kitty
-fzf
-bat
-exa
+- wget
+- base-devel
+- flameshot
+- nfs-utils
+- cups
+- hplip
+- ghostscript
+- gsfonts
+- libcups
+- docker
+- gnome-keyring
+- libsecret
+- libgnome-keyring
+- openvpn
+- discord
+- python-pip
+- net-tools
+- pkgfile
+- kubectx
+- postgresql-libs
+- fish
+- kitty
+- fzf
+- bat
+- exa
+- brave-bin
+- uim
+- authy
+- google-cloud-sdk
+- google-cloud-sdk-app-engine-python
+- google-cloud-sdk-app-engine-python-extras
+- dashbinsh
+- unixodbc
+- azure-cli
+- spotify
+- docker-machine
+- docker-machine-driver-kvm2
+- minikube
+- kubectl
+- helm
+- teams
+- find-the-command
+- brightnessctl
+- ttf-meslo-nerd-font-powerlevel10k
+- network-manager-applet
+- pa-applet-git
+- blueman
+- xidlehook
+- xf86-video-intel
+- arc-gtk-theme
+- vimix-cursors
+- tela-circle-icon-theme-git
+- nerd-fonts-fira-code
+- code-insiders
+- pavucontrol
+- gnome-ssh-askpass3
+- systemd-ssh-agent
+- xorg
+- lightdm
+- lightdm-slick-greeter
+- xorg
+- alsa-utils
+- pulseaudio
+- pulseaudio-alsa
+- pipewire-alsa
+- gst-libav
+- gst-plugins-ugly
+- gst-plugins-bad
+- system-config-printer
+- dunst
+- feh
+- betterlockscreen
+- rofi
+- qtile
+- arc-gtk-theme
+- arc-icon-theme
+- file-roller
+- nemo-fileroller
+- gparted
+- pavucontrol
+- baobab
+- xreader
+- qemu-base
+- libvirt
+- iptables-nft
+- dnsmasq
+- virt-manager
+- virt-viewer
+- bridge-utils
+- dmidecode
+- edk2-ovmf
+- dhclient
+- dialog
+- wpa_supplicant
+- wireless_tools
+- netctl
+- inetutils
+- openssh
+- ntfs-3g
+- nfs-utils
+- e2fsprogs
+- smartmontools
+- btrfs-progs
+- gvfs
+- gvfs-smb
+- unzip
+- unrar
+- p7zip
+- unarchiver
+- nano
+- neofetch
+- btop
+- nvtop
+- onlyoffice-bin
